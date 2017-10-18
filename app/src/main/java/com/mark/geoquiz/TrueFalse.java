@@ -6,12 +6,14 @@ public class TrueFalse {
 
     private boolean mTrueQuestion;
 
+    // Constructor.
     public TrueFalse(int question, boolean trueQuestion) {
         mQuestion = question;
         mTrueQuestion = trueQuestion;
 
     }
 
+    // Getters and Setters.
     public int getQuestion() {
         return mQuestion;
     }

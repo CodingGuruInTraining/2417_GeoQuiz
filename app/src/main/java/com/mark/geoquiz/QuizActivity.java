@@ -3,7 +3,6 @@ package com.mark.geoquiz;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,15 +10,17 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+    // Sets debugging variable.
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
 
-    // Defines variables for buttons.
+    // Defines variables for widgets.
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
     private TextView mQuestionTextView;
 
+    // Creates a static list of questions and answers.
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
             new TrueFalse(R.string.question_oceans, true),
             new TrueFalse(R.string.question_mideast, false),
@@ -28,13 +29,16 @@ public class QuizActivity extends AppCompatActivity {
             new TrueFalse(R.string.question_asia, true),
     };
 
+    // Variable to track current index of list.
     private int mCurrentIndex = 0;
 
+    // Function for setting textview's text.
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
     }
 
+    // Function for checking user's response against the correct answer.
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 
@@ -56,15 +60,12 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
-//        int question = mQuestionBank[mCurrentIndex].getQuestion();
-//        mQuestionTextView.setText(question);
 
         // Matches button object to variable and sets click event.
         mTrueButton = (Button)findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
                 checkAnswer(true);
             }
         });
@@ -72,18 +73,16 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
                 checkAnswer(false);
             }
         });
 
+        // Sets up Next button and its click event.
         mNextButton = (Button)findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-//                int question = mQuestionBank[mCurrentIndex].getQuestion();
-//                mQuestionTextView.setText(question);
                 updateQuestion();
             }
         });
@@ -131,10 +130,4 @@ public class QuizActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.activity_quiz, menu);
-//        return true;
-//    }
 }
